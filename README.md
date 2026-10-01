@@ -255,4 +255,4 @@ Reactなどの新しい技術は、MVPで必要な体験を完成させた後に
 
 ## 11. 画面遷移図
 
-Figma：https://www.figma.com/design/BTvBSVWtHZpTNbl2dLY7Hj/%25E7%2594%25BB%25E9%259D%25A2%25E9%2581%25B7%25E7%25A7%25BB%25E5%259B%25B3?node-id=0-1&p=f&t=S8L7UVqjROJ9l60V-0
+Figma：https://www.figma.com/design/BTvBSVWtHZpTNbl2dLY7Hj/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=yXJNmid0s1aBdxEn-1
