@@ -256,3 +256,8 @@ Reactなどの新しい技術は、MVPで必要な体験を完成させた後に
 ## 11. 画面遷移図
 
 Figma：https://www.figma.com/design/BTvBSVWtHZpTNbl2dLY7Hj/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=yXJNmid0s1aBdxEn-1
+
+---
+
+## 12. ER図
+Gyazo:https://gyazo.com/649b465622772e09d0146e3e7a25df4d
