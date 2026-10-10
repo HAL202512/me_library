@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "users#new"
+  get "home/index"
+  root "home#index"
 
   resources :users, only: %i[new create]
   resources :user_sessions, only: %i[new create]
