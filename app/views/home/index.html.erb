@@ -1,5 +1,42 @@
-<h1>思い出図書館</h1>
+<div class="max-w-4xl mx-auto mt-10 p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">思い出図書館</h1>
+    <%= button_to "ログアウト", user_session_path, method: :delete, class: "bg-gray-500 text-white px-3 py-1 rounded" %>
+  </div>
 
-<p>ログイン中です。</p>
+  <div class="mb-6">
+    <%= link_to "思い出を記録する", new_memory_path, class: "bg-blue-500 text-white font-bold py-2 px-4 rounded inline-block" %>
+  </div>
 
-<%= button_to "ログアウト", user_session_path, method: :delete %>
+  <div class="grid gap-6">
+    <% @memories.each do |memory| %>
+      <div class="border rounded-lg p-6 shadow-sm">
+        <!-- 作品情報エリア -->
+        <div class="mb-4">
+          <span class="inline-block bg-gray-200 rounded px-2 py-1 text-sm font-semibold text-gray-700 mr-2">
+            <%= memory.work.genre %>
+          </span>
+          <span class="text-xl font-bold"><%= memory.work.title %></span>
+          <span class="text-gray-600 ml-2">作: <%= memory.work.author %></span>
+        </div>
+
+        <!-- 当時の思い出エリア -->
+        <div class="mb-4 bg-gray-50 p-4 rounded">
+          <p class="font-bold text-gray-700 mb-2">出会い: <%= memory.encountered_year %>年</p>
+          <p class="whitespace-pre-wrap"><%= memory.content %></p>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- 振り返りエリア（プレースホルダー） -->
+        <div>
+          <h3 class="font-bold text-gray-700 mb-2">現在の振り返り</h3>
+          <p class="text-sm text-gray-500 mb-3">まだ振り返りが記録されていません。</p>
+          <button class="bg-green-500 text-white text-sm py-1 px-3 rounded opacity-50 cursor-not-allowed">
+            振り返りを記録する (未実装)
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
