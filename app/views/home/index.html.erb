@@ -36,6 +36,11 @@
             振り返りを記録する (未実装)
           </button>
         </div>
+
+        <div class="mt-4 text-right">
+          <%= button_to "この思い出を削除する", memory_path(memory), method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700 text-sm font-bold" %>
+        </div>
+        
       </div>
     <% end %>
   </div>

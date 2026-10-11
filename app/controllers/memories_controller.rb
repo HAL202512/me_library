@@ -18,6 +18,14 @@ class MemoriesController < ApplicationController
     end
   end
 
+  def destroy
+    memory = current_user.memories.find(params[:id])
+    memory.destroy!
+    
+    # Turbo（Hotwire）環境での削除後のリダイレクトには status: :see_other を指定します
+    redirect_to root_path, notice: '思い出を削除しました', status: :see_other
+  end
+  
   private
 
   def memory_form_params
