@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_08_113900) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_11_023711) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "memories", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "work_id", null: false
+    t.integer "encountered_year"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_memories_on_user_id"
+    t.index ["work_id"], name: "index_memories_on_work_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
@@ -23,4 +34,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_08_113900) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
+
+  create_table "works", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.string "author", null: false
+    t.string "genre", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_works_on_user_id"
+  end
+
+  add_foreign_key "memories", "users"
+  add_foreign_key "memories", "works"
+  add_foreign_key "works", "users"
 end
