@@ -7,9 +7,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
+    
     if @user.save
-      redirect_to root_path
+      auto_login(@user) # ユーザー保存成功後に自動でログイン状態にする
+      redirect_to root_path, notice: 'アカウントを作成し、ログインしました'
     else
       render :new, status: :unprocessable_entity
     end
