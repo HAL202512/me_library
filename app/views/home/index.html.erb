@@ -35,6 +35,9 @@
               <div class="mb-3 p-3 bg-gray-100 rounded text-sm">
                 <p class="text-gray-500 mb-1"><%= reflection.recorded_on.strftime("%Y年%m月%d日") %> の振り返り</p>
                 <p class="whitespace-pre-wrap"><%= reflection.content %></p>
+                <div class="mt-2 text-right">
+                  <%= link_to "編集", edit_memory_reflection_path(memory, reflection), class: "text-blue-500 hover:text-blue-700 text-xs" %>
+                </div>
               </div>
             <% end %>
           <% else %>
@@ -44,7 +47,8 @@
           <%= link_to "振り返りを記録する", new_memory_reflection_path(memory), class: "inline-block bg-green-500 hover:bg-green-600 text-white text-sm py-1 px-3 rounded mt-2" %>
         </div>
 
-        <div class="mt-4 text-right">
+        <div class="mt-4 flex justify-end gap-4">
+          <%= link_to "この思い出を編集する", edit_memory_path(memory), class: "text-blue-500 hover:text-blue-700 text-sm font-bold" %>
           <%= button_to "この思い出を削除する", memory_path(memory), method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700 text-sm font-bold" %>
         </div>
 

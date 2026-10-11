@@ -46,4 +46,25 @@ class MemoryForm
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
     false # データベース制約違反などがあれば false を返す
   end
+
+  def update(memory)
+    return false if invalid?
+
+    ActiveRecord::Base.transaction do
+      # 既存の作品情報を更新（または新しく作成）
+      work = Work.find_or_create_by!(title: title, author: author, genre: genre, user_id: user_id)
+      
+      # 思い出の情報を更新
+      memory.update!(
+        work_id: work.id,
+        encountered_year: encountered_year,
+        content: content
+      )
+    end
+    true
+  rescue StandardError => e
+    errors.add(:base, "更新に失敗しました: #{e.message}")
+    false
+  end
+  
 end

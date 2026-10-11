@@ -1,5 +1,6 @@
 class MemoriesController < ApplicationController
   before_action :require_login
+  before_action :set_memory, only: %i[edit update destroy]
 
   def new
     @memory_form = MemoryForm.new
@@ -18,14 +19,41 @@ class MemoriesController < ApplicationController
     end
   end
 
+  def edit
+    # 既存の作品と思出データをFormオブジェクトに渡す
+    @memory_form = MemoryForm.new(
+      title: @memory.work.title,
+      author: @memory.work.author,
+      genre: @memory.work.genre,
+      encountered_year: @memory.encountered_year,
+      content: @memory.content
+    )
+  end
+
+  def update
+    @memory_form = MemoryForm.new(memory_form_params)
+    @memory_form.user_id = current_user.id
+    
+    # 既存のデータを更新するための処理
+    if @memory_form.update(@memory)
+      redirect_to root_path, notice: '思い出を更新しました'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
-    memory = current_user.memories.find(params[:id])
-    memory.destroy!
+    #memory = current_user.memories.find(params[:id])
+    @memory.destroy!
     
     # Turbo（Hotwire）環境での削除後のリダイレクトには status: :see_other を指定します
     redirect_to root_path, notice: '思い出を削除しました', status: :see_other
   end
-  
+
+  def set_memory
+    @memory = current_user.memories.find(params[:id])
+  end
+
   private
 
   def memory_form_params
