@@ -1,0 +1,57 @@
+<div class="max-w-3xl mx-auto mt-8">
+  
+  <!-- 戻るリンク -->
+  <div class="mb-4">
+    <%= link_to "← 一覧に戻る", root_path, class: "text-gray-500 hover:text-gray-700 text-sm font-bold" %>
+  </div>
+
+  <div class="mb-8 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+    
+    <!-- 1. 作品情報ヘッダー -->
+    <div class="border-b pb-4 mb-6">
+      <h1 class="text-2xl font-bold text-gray-800"><%= @memory.work.title %></h1>
+      <p class="text-gray-500 mt-2">
+        作者: <%= @memory.work.author.presence || "不明" %> | ジャンル: <%= @memory.work.genre %>
+      </p>
+    </div>
+
+    <!-- 2. タイムライン表示エリア -->
+    <div class="relative border-l-2 border-blue-200 ml-4 py-2 space-y-8">
+      
+      <!-- 【始点】当時の思い出 -->
+      <div class="relative pl-6">
+        <div class="absolute -left-[9px] top-1.5 w-4 h-4 bg-blue-500 rounded-full border-2 border-white"></div>
+        
+        <p class="text-sm text-blue-600 font-bold"><%= @memory.encountered_year %>年の出会い</p>
+        <div class="mt-2 p-4 bg-blue-50 rounded text-gray-700 whitespace-pre-wrap"><%= @memory.content %></div>
+      </div>
+
+      <!-- 【経過】振り返りの履歴 -->
+      <% @memory.reflections.order(recorded_on: :asc).each do |reflection| %>
+        <div class="relative pl-6">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
+          
+          <p class="text-sm text-green-600 font-bold"><%= reflection.recorded_on.strftime("%Y年%m月%d日") %> の振り返り</p>
+          <div class="mt-2 p-4 bg-gray-50 rounded text-gray-700 whitespace-pre-wrap"><%= reflection.content %></div>
+          
+          <!-- 振り返りの編集・削除ボタン -->
+          <div class="mt-3 flex justify-end gap-3 items-center">
+            <%= link_to "編集", edit_memory_reflection_path(@memory, reflection), class: "text-blue-500 hover:text-blue-700 text-sm font-bold" %>
+            <%= button_to "削除", memory_reflection_path(@memory, reflection), method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700 text-sm font-bold", form: { class: "inline-block" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 3. アクションエリア -->
+    <div class="mt-8 pt-6 border-t flex justify-between items-center bg-gray-50 -mx-6 -mb-6 p-6 rounded-b-lg">
+      <%= link_to "＋ 振り返りを記録", new_memory_reflection_path(@memory), class: "inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-sm" %>
+      
+      <div class="flex gap-4">
+        <%= link_to "思い出を編集", edit_memory_path(@memory), class: "text-gray-500 hover:text-blue-600 text-sm font-bold bg-white px-3 py-1 rounded border shadow-sm" %>
+        <%= button_to "思い出ごと削除", memory_path(@memory), method: :delete, data: { turbo_confirm: "思い出と振り返りがすべて削除されます。本当によろしいですか？" }, class: "text-gray-500 hover:text-red-600 text-sm font-bold bg-white px-3 py-1 rounded border shadow-sm" %>
+      </div>
+    </div>
+
+  </div>
+</div>

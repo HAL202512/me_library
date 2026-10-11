@@ -1,6 +1,10 @@
 class MemoriesController < ApplicationController
   before_action :require_login
-  before_action :set_memory, only: %i[edit update destroy]
+  before_action :set_memory, only: %i[show edit update destroy]
+
+  def show
+    # @memory は set_memory で取得
+  end
 
   def new
     @memory_form = MemoryForm.new
@@ -30,13 +34,12 @@ class MemoriesController < ApplicationController
     )
   end
 
-  def update
+def update
     @memory_form = MemoryForm.new(memory_form_params)
     @memory_form.user_id = current_user.id
     
-    # 既存のデータを更新するための処理
     if @memory_form.update(@memory)
-      redirect_to root_path, notice: '思い出を更新しました'
+      redirect_to memory_path(@memory), notice: '思い出を更新しました'
     else
       render :edit, status: :unprocessable_entity
     end

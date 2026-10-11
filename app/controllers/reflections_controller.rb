@@ -12,7 +12,7 @@ class ReflectionsController < ApplicationController
     @reflection = @memory.reflections.build(reflection_params)
     
     if @reflection.save
-      redirect_to root_path, notice: '振り返りを記録しました'
+      redirect_to memory_path(@memory), notice: '振り返りを記録しました'
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,7 +24,7 @@ class ReflectionsController < ApplicationController
 
   def update
     if @reflection.update(reflection_params)
-      redirect_to root_path, notice: '振り返りを更新しました'
+      redirect_to memory_path(@memory), notice: '振り返りを更新しました'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class ReflectionsController < ApplicationController
 
   def destroy
     @reflection.destroy!
-    redirect_to root_path, notice: '振り返りを削除しました', status: :see_other
+    redirect_to memory_path(@memory), notice: '振り返りを削除しました', status: :see_other
   end
 
   private
