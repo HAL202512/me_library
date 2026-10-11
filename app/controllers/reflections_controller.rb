@@ -1,7 +1,7 @@
 class ReflectionsController < ApplicationController
   before_action :require_login
   before_action :set_memory
-  before_action :set_reflection, only: %i[edit update]
+  before_action :set_reflection, only: %i[edit update destroy]
 
   def new
     # 初期値として当日の日付をセット
@@ -28,6 +28,11 @@ class ReflectionsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @reflection.destroy!
+    redirect_to root_path, notice: '振り返りを削除しました', status: :see_other
   end
 
   private

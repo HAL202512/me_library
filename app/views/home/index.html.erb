@@ -20,7 +20,7 @@
           <span class="text-gray-600 ml-2">作: <%= memory.work.author %></span>
         </div>
 
-        <!-- 当時の思い出エリア -->
+        <!-- 当時の思い出エリア --> 
         <div class="mb-4 bg-gray-50 p-4 rounded">
           <p class="font-bold text-gray-700 mb-2">出会い: <%= memory.encountered_year %>年</p>
           <p class="whitespace-pre-wrap"><%= memory.content %></p>
@@ -28,6 +28,7 @@
 
         <hr class="my-4">
 
+        <!-- 現在の振り返りエリア -->
         <div>
           <h3 class="font-bold text-gray-700 mb-2">現在の振り返り</h3>
           <% if memory.reflections.any? %>
@@ -35,8 +36,9 @@
               <div class="mb-3 p-3 bg-gray-100 rounded text-sm">
                 <p class="text-gray-500 mb-1"><%= reflection.recorded_on.strftime("%Y年%m月%d日") %> の振り返り</p>
                 <p class="whitespace-pre-wrap"><%= reflection.content %></p>
-                <div class="mt-2 text-right">
-                  <%= link_to "編集", edit_memory_reflection_path(memory, reflection), class: "text-blue-500 hover:text-blue-700 text-xs" %>
+                <div class="mt-2 flex justify-end gap-3 items-center">
+                  <%= link_to "編集", edit_memory_reflection_path(memory, reflection), class: "text-blue-500 hover:text-blue-700 text-xs font-bold" %>
+                  <%= button_to "削除", memory_reflection_path(memory, reflection), method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "text-red-500 hover:text-red-700 text-xs font-bold", form: { class: "inline-block" } %>
                 </div>
               </div>
             <% end %>
