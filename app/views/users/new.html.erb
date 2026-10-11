@@ -1,27 +1,43 @@
-<h1>ユーザー登録</h1>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white border rounded-lg shadow-sm">
+  <h1 class="text-2xl font-bold mb-6 text-center">新規アカウント登録</h1>
 
-<%= form_with model: @user do |form| %>
-  <div>
-    <%= form.label :name, "ユーザー名" %>
-    <%= form.text_field :name %>
-  </div>
+  <%= form_with model: @user, url: users_path, local: true do |f| %>
+    <% if @user&.errors&.any? %>
+      <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+        <ul class="list-disc pl-5">
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div>
-    <%= form.label :email, "メールアドレス" %>
-    <%= form.email_field :email %>
-  </div>
+    <div class="mb-4">
+      <%= f.label :name, "名前", class: "block font-bold mb-2" %>
+      <%= f.text_field :name, class: "border rounded p-2 w-full" %>
+    </div>
 
-  <div>
-    <%= form.label :password, "パスワード" %>
-    <%= form.password_field :password %>
-  </div>
+    <div class="mb-4">
+      <%= f.label :email, "Email", class: "block font-bold mb-2" %>
+      <%= f.email_field :email, class: "border rounded p-2 w-full" %>
+    </div>
 
-  <div>
-    <%= form.label :password_confirmation, "パスワード（確認）" %>
-    <%= form.password_field :password_confirmation %>
-  </div>
+    <div class="mb-4">
+      <%= f.label :password, "パスワード", class: "block font-bold mb-2" %>
+      <%= f.password_field :password, class: "border rounded p-2 w-full" %>
+    </div>
 
-  <div>
-    <%= form.submit "登録" %>
+    <div class="mb-6">
+      <%= f.label :password_confirmation, "パスワード確認", class: "block font-bold mb-2" %>
+      <%= f.password_field :password_confirmation, class: "border rounded p-2 w-full" %>
+    </div>
+
+    <div>
+      <%= f.submit "登録", class: "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full cursor-pointer" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 text-center">
+    <%= link_to "ログイン画面に戻る", new_user_session_path, class: "text-blue-500 hover:underline text-sm" %>
   </div>
-<% end %>
+</div>
