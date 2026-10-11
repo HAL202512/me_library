@@ -55,7 +55,7 @@ RUN bundle install && \
 
 # Install node modules
 COPY package.json yarn.lock ./
-RUN yarn install --immutable
+RUN yarn install --frozen-lockfile
 
 # Copy application code
 COPY . .
@@ -65,7 +65,7 @@ COPY . .
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN DATABASE_URL=postgresql://localhost/myapp_production SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 
 RUN rm -rf node_modules
