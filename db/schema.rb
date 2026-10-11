@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_11_055048) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_11_080057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -25,6 +25,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_11_055048) do
     t.index ["work_id"], name: "index_memories_on_work_id"
   end
 
+  create_table "memory_tags", force: :cascade do |t|
+    t.bigint "memory_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["memory_id"], name: "index_memory_tags_on_memory_id"
+    t.index ["tag_id"], name: "index_memory_tags_on_tag_id"
+  end
+
+  create_table "reflection_tags", force: :cascade do |t|
+    t.bigint "reflection_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reflection_id"], name: "index_reflection_tags_on_reflection_id"
+    t.index ["tag_id"], name: "index_reflection_tags_on_tag_id"
+  end
+
   create_table "reflections", force: :cascade do |t|
     t.bigint "memory_id", null: false
     t.date "recorded_on", null: false
@@ -32,6 +50,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_11_055048) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["memory_id"], name: "index_reflections_on_memory_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.integer "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -56,6 +81,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_11_055048) do
 
   add_foreign_key "memories", "users"
   add_foreign_key "memories", "works"
+  add_foreign_key "memory_tags", "memories"
+  add_foreign_key "memory_tags", "tags"
+  add_foreign_key "reflection_tags", "reflections"
+  add_foreign_key "reflection_tags", "tags"
   add_foreign_key "reflections", "memories"
   add_foreign_key "works", "users"
 end
