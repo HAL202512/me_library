@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_11_023711) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_11_055048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_11_023711) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_memories_on_user_id"
     t.index ["work_id"], name: "index_memories_on_work_id"
+  end
+
+  create_table "reflections", force: :cascade do |t|
+    t.bigint "memory_id", null: false
+    t.date "recorded_on", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["memory_id"], name: "index_reflections_on_memory_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,5 +56,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_11_023711) do
 
   add_foreign_key "memories", "users"
   add_foreign_key "memories", "works"
+  add_foreign_key "reflections", "memories"
   add_foreign_key "works", "users"
 end

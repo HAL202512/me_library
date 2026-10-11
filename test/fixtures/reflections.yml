@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  memory: one
+  recorded_on: 2026-10-11
+  content: MyText
+
+two:
+  memory: two
+  recorded_on: 2026-10-11
+  content: MyText

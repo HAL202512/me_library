@@ -1,0 +1,35 @@
+<div class="max-w-2xl mx-auto mt-10">
+  <h1 class="text-2xl font-bold mb-6">振り返りの記録</h1>
+  
+  <!-- どの思い出に対する振り返りか分かりやすいように対象を表示 -->
+  <div class="mb-6 p-4 bg-gray-50 rounded border">
+    <p class="font-bold text-lg"><%= @memory.work.title %></p>
+    <p class="text-sm text-gray-600 mt-2">当時の思い出：<br><%= @memory.content %></p>
+  </div>
+
+  <%= form_with model: [@memory, @reflection], local: true do |f| %>
+    <% if @reflection.errors.any? %>
+      <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+        <ul class="list-disc pl-5">
+          <% @reflection.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :recorded_on, "#{@memory.reflections.size}回目：", class: "block font-bold mb-2" %>
+      <%= f.date_field :recorded_on, class: "border rounded p-2" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :content, "改めて振り返ったときに感じたことや・変化したこと", class: "block font-bold mb-2" %>
+      <%= f.text_area :content, rows: 5, class: "border rounded p-2 w-full" %>
+    </div>
+
+    <div>
+      <%= f.submit "更新", class: "bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
