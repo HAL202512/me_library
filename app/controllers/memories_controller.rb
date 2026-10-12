@@ -55,7 +55,7 @@ def update
   end
 
   def set_memory
-    @memory = current_user.memories.find(params[:id])
+    @memory = current_user.memories.includes(:work, :tags, reflections: :tags).find(params[:id])
   end
 
   private

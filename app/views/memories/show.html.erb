@@ -38,7 +38,7 @@
       </div>
 
       <!-- 【経過】振り返りの履歴 -->
-      <% @memory.reflections.order(recorded_on: :asc).each do |reflection| %>
+      <% @memory.reflections.sort_by(&:recorded_on).each do |reflection| %>
         <div class="relative pl-6">
           <div class="absolute -left-[9px] top-1.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
           

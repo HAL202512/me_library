@@ -44,7 +44,7 @@
             </div>
 
             <!-- 最新の振り返りプレビュー -->
-            <% latest_reflection = memory.reflections.order(recorded_on: :desc).first %>
+            <% latest_reflection = memory.reflections.max_by(&:recorded_on) %>
             <% if latest_reflection %>
               <div class="pl-4 border-l-2 border-green-300">
                 <p class="text-xs text-gray-500 font-bold mb-1">最新の振り返り (<%= latest_reflection.recorded_on.strftime("%Y/%m/%d") %>)</p>
