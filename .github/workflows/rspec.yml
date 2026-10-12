@@ -1,0 +1,52 @@
+name: RSpec CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    # CI環境用にPostgreSQLのデータベースを用意
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # 1. GitHubからコードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. RubyのセットアップとGemのキャッシュ
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true # bundle installを高速化
+
+      # 3. データベースのセットアップ（CI上のDBに接続するよう環境変数を上書き）
+      - name: Set up database schema
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
+        run: |
+          bin/rails db:create db:schema:load
+
+      # 4. RSpecの実行
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
+        run: bundle exec rspec
