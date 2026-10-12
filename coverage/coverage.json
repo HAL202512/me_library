@@ -8,7 +8,7 @@
       "RSpec"
     ],
     "project_name": "Myapp",
-    "timestamp": "2026-10-13T02:25:34.115+09:00",
+    "timestamp": "2026-10-13T02:40:43.839+09:00",
     "root": "/myapp",
     "commit": null,
     "primary_coverage": "line",
@@ -18,12 +18,12 @@
   },
   "total": {
     "lines": {
-      "covered": 57,
-      "missed": 120,
+      "covered": 98,
+      "missed": 79,
       "omitted": 170,
       "total": 177,
-      "percent": 32.20338983050848,
-      "strength": 0.480225988700565
+      "percent": 55.367231638418076,
+      "strength": 0.576271186440678
     }
   },
   "coverage": {
@@ -42,21 +42,21 @@
         "end"
       ],
       "lines": [
-        0,
-        0,
+        1,
+        1,
         null,
-        0,
+        1,
         null,
-        0,
+        1,
         null,
-        0,
+        1,
         0,
         null,
         null
       ],
-      "lines_covered_percent": 0.0,
-      "covered_lines": 0,
-      "missed_lines": 6,
+      "lines_covered_percent": 83.33333333333333,
+      "covered_lines": 5,
+      "missed_lines": 1,
       "omitted_lines": 5,
       "total_lines": 6
     },
@@ -72,18 +72,18 @@
         "end"
       ],
       "lines": [
-        0,
-        0,
+        1,
+        1,
         null,
-        0,
+        1,
         null,
-        0,
+        2,
         null,
         null
       ],
-      "lines_covered_percent": 0.0,
-      "covered_lines": 0,
-      "missed_lines": 4,
+      "lines_covered_percent": 100.0,
+      "covered_lines": 4,
+      "missed_lines": 0,
       "omitted_lines": 4,
       "total_lines": 4
     },
@@ -157,76 +157,76 @@
         "end"
       ],
       "lines": [
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
         null,
-        0,
-        null,
-        null,
-        null,
-        0,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        0,
-        null,
-        null,
-        0,
+        1,
         null,
         null,
         null,
-        0,
-        null,
-        0,
-        null,
+        1,
+        1,
         null,
         null,
+        1,
+        1,
+        1,
         null,
+        1,
         null,
-        null,
-        null,
-        null,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        0,
-        null,
-        0,
+        1,
         null,
         null,
         0,
         null,
         null,
+        null,
+        1,
+        null,
         0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        null,
         0,
         null,
         null,
         0,
         null,
+        null,
+        1,
         0,
-        0,
+        null,
+        null,
+        1,
+        null,
+        1,
+        1,
         null,
         null
       ],
-      "lines_covered_percent": 0.0,
-      "covered_lines": 0,
-      "missed_lines": 28,
+      "lines_covered_percent": 64.28571428571429,
+      "covered_lines": 18,
+      "missed_lines": 10,
       "omitted_lines": 38,
       "total_lines": 28
     },
@@ -368,29 +368,29 @@
         "end"
       ],
       "lines": [
-        0,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
         0,
         0,
         null,
         null,
-        0,
-        0,
-        0,
         null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        0,
+        1,
         0,
         0,
         null,
         null
       ],
-      "lines_covered_percent": 0.0,
-      "covered_lines": 0,
-      "missed_lines": 11,
+      "lines_covered_percent": 63.63636363636363,
+      "covered_lines": 7,
+      "missed_lines": 4,
       "omitted_lines": 8,
       "total_lines": 11
     },
@@ -591,7 +591,7 @@
         null,
         null,
         1,
-        2,
+        1,
         null,
         1,
         1,
@@ -828,15 +828,15 @@
         "end"
       ],
       "lines": [
-        0,
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
+        1,
         null
       ],
-      "lines_covered_percent": 0.0,
-      "covered_lines": 0,
-      "missed_lines": 4,
+      "lines_covered_percent": 100.0,
+      "covered_lines": 4,
+      "missed_lines": 0,
       "omitted_lines": 1,
       "total_lines": 4
     },
@@ -849,15 +849,15 @@
         ""
       ],
       "lines": [
-        0,
-        0,
-        0,
+        1,
+        1,
+        1,
         null,
         null
       ],
-      "lines_covered_percent": 0.0,
-      "covered_lines": 0,
-      "missed_lines": 3,
+      "lines_covered_percent": 100.0,
+      "covered_lines": 3,
+      "missed_lines": 0,
       "omitted_lines": 2,
       "total_lines": 3
     },
@@ -922,8 +922,8 @@
         null,
         1,
         1,
-        19,
-        10,
+        3,
+        2,
         null,
         1,
         1,
@@ -956,12 +956,12 @@
   "groups": {
     "Controllers": {
       "lines": {
-        "covered": 0,
-        "missed": 98,
+        "covered": 34,
+        "missed": 64,
         "omitted": 100,
         "total": 98,
-        "percent": 0.0,
-        "strength": 0.0
+        "percent": 34.69387755102041,
+        "strength": 0.35714285714285715
       },
       "files": [
         "app/controllers/application_controller.rb",
@@ -1016,12 +1016,12 @@
     },
     "Models": {
       "lines": {
-        "covered": 29,
-        "missed": 7,
+        "covered": 36,
+        "missed": 0,
         "omitted": 18,
         "total": 36,
-        "percent": 80.55555555555556,
-        "strength": 1.5555555555555556
+        "percent": 100.0,
+        "strength": 1.0833333333333333
       },
       "files": [
         "app/models/application_record.rb",
@@ -1041,12 +1041,200 @@
         "omitted": 41,
         "total": 35,
         "percent": 68.57142857142857,
-        "strength": 0.7142857142857143
+        "strength": 0.6857142857142857
       },
       "files": [
         "app/forms/memory_form.rb"
       ]
     }
   },
-  "errors": {}
+  "errors": {},
+  "history": [
+    {
+      "created_at": "2026-10-12T17:25:34Z",
+      "branch": null,
+      "commit": null,
+      "totals": {
+        "line": 32.2
+      },
+      "groups": {
+        "Controllers": {
+          "line": 0.0
+        },
+        "Helpers": {
+          "line": 100.0
+        },
+        "Jobs": {
+          "line": 0.0
+        },
+        "Mailers": {
+          "line": 0.0
+        },
+        "Models": {
+          "line": 80.55
+        },
+        "Ungrouped": {
+          "line": 68.57
+        }
+      },
+      "files": {
+        "app/controllers/application_controller.rb": {
+          "line": 0.0
+        },
+        "app/controllers/home_controller.rb": {
+          "line": 0.0
+        },
+        "app/controllers/memories_controller.rb": {
+          "line": 0.0
+        },
+        "app/controllers/reflections_controller.rb": {
+          "line": 0.0
+        },
+        "app/controllers/user_sessions_controller.rb": {
+          "line": 0.0
+        },
+        "app/controllers/users_controller.rb": {
+          "line": 0.0
+        },
+        "app/forms/memory_form.rb": {
+          "line": 68.57
+        },
+        "app/helpers/application_helper.rb": {
+          "line": 100.0
+        },
+        "app/helpers/home_helper.rb": {
+          "line": 100.0
+        },
+        "app/helpers/user_sessions_helper.rb": {
+          "line": 100.0
+        },
+        "app/helpers/users_helper.rb": {
+          "line": 100.0
+        },
+        "app/jobs/application_job.rb": {
+          "line": 0.0
+        },
+        "app/mailers/application_mailer.rb": {
+          "line": 0.0
+        },
+        "app/models/application_record.rb": {
+          "line": 100.0
+        },
+        "app/models/memory.rb": {
+          "line": 100.0
+        },
+        "app/models/memory_tag.rb": {
+          "line": 100.0
+        },
+        "app/models/reflection.rb": {
+          "line": 0.0
+        },
+        "app/models/reflection_tag.rb": {
+          "line": 0.0
+        },
+        "app/models/tag.rb": {
+          "line": 100.0
+        },
+        "app/models/user.rb": {
+          "line": 100.0
+        },
+        "app/models/work.rb": {
+          "line": 100.0
+        }
+      }
+    },
+    {
+      "created_at": "2026-10-12T17:40:43Z",
+      "branch": null,
+      "commit": null,
+      "totals": {
+        "line": 55.36
+      },
+      "groups": {
+        "Controllers": {
+          "line": 34.69
+        },
+        "Helpers": {
+          "line": 100.0
+        },
+        "Jobs": {
+          "line": 0.0
+        },
+        "Mailers": {
+          "line": 0.0
+        },
+        "Models": {
+          "line": 100.0
+        },
+        "Ungrouped": {
+          "line": 68.57
+        }
+      },
+      "files": {
+        "app/controllers/application_controller.rb": {
+          "line": 83.33
+        },
+        "app/controllers/home_controller.rb": {
+          "line": 100.0
+        },
+        "app/controllers/memories_controller.rb": {
+          "line": 64.28
+        },
+        "app/controllers/reflections_controller.rb": {
+          "line": 0.0
+        },
+        "app/controllers/user_sessions_controller.rb": {
+          "line": 63.63
+        },
+        "app/controllers/users_controller.rb": {
+          "line": 0.0
+        },
+        "app/forms/memory_form.rb": {
+          "line": 68.57
+        },
+        "app/helpers/application_helper.rb": {
+          "line": 100.0
+        },
+        "app/helpers/home_helper.rb": {
+          "line": 100.0
+        },
+        "app/helpers/user_sessions_helper.rb": {
+          "line": 100.0
+        },
+        "app/helpers/users_helper.rb": {
+          "line": 100.0
+        },
+        "app/jobs/application_job.rb": {
+          "line": 0.0
+        },
+        "app/mailers/application_mailer.rb": {
+          "line": 0.0
+        },
+        "app/models/application_record.rb": {
+          "line": 100.0
+        },
+        "app/models/memory.rb": {
+          "line": 100.0
+        },
+        "app/models/memory_tag.rb": {
+          "line": 100.0
+        },
+        "app/models/reflection.rb": {
+          "line": 100.0
+        },
+        "app/models/reflection_tag.rb": {
+          "line": 100.0
+        },
+        "app/models/tag.rb": {
+          "line": 100.0
+        },
+        "app/models/user.rb": {
+          "line": 100.0
+        },
+        "app/models/work.rb": {
+          "line": 100.0
+        }
+      }
+    }
+  ]
 }
