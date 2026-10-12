@@ -30,7 +30,8 @@ class MemoriesController < ApplicationController
       author: @memory.work.author,
       genre: @memory.work.genre,
       encountered_year: @memory.encountered_year,
-      content: @memory.content
+      content: @memory.content,
+      tag_ids: @memory.tag_ids
     )
   end
 
@@ -60,6 +61,6 @@ def update
   private
 
   def memory_form_params
-    params.require(:memory_form).permit(:title, :author, :genre, :encountered_year, :content)
+    params.require(:memory_form).permit(:title, :author, :genre, :encountered_year, :content, tag_ids: [])
   end
 end

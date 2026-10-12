@@ -1,46 +1,71 @@
-<div class="max-w-4xl mx-auto mt-10 p-4">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold">思い出図書館</h1>
-    <%= button_to "ログアウト", user_session_path, method: :delete, class: "bg-gray-500 text-white px-3 py-1 rounded" %>
-  </div>
-
-  <div class="mb-6">
-    <%= link_to "思い出を記録する", new_memory_path, class: "bg-blue-500 text-white font-bold py-2 px-4 rounded inline-block" %>
-  </div>
-
-  <div class="grid gap-6">
-    <% @memories.each do |memory| %>
-      <div class="mb-8 p-5 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-        
-        <!-- ヘッダー部分 -->
-        <div class="border-b pb-3 mb-4 flex justify-between items-center">
-          <div>
-            <h2 class="text-xl font-bold text-gray-800"><%= memory.work.title %></h2>
-            <p class="text-sm text-gray-500 mt-1">作者: <%= memory.work.author.presence || "不明" %> | ジャンル: <%= memory.work.genre %></p>
-          </div>
+<div class="max-w-4xl mx-auto mt-8">
+  
+  <% if @memories.empty? %>
+    <div class="text-center py-12 bg-gray-50 rounded-lg border">
+      <p class="text-gray-500">まだ思い出が記録されていません。</p>
+      <p class="text-gray-500 mt-2">右上の「新規作品登録」ボタンから最初の記録を作成してみましょう！</p>
+    </div>
+  <% else %>
+    <div class="grid gap-6">
+      <% @memories.each do |memory| %>
+        <div class="p-5 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
           
-          <!-- ★詳細画面（タイムライン）へのリンク -->
-          <%= link_to "詳細を見る", memory_path(memory), class: "text-blue-600 hover:text-blue-800 font-bold bg-blue-50 px-3 py-1 rounded" %>
-        </div>
-
-        <!-- プレビュー表示エリア（原体験と、もしあれば最新の振り返り1件） -->
-        <div class="space-y-4">
-          <!-- 原体験のプレビュー -->
-          <div class="pl-4 border-l-2 border-gray-300">
-            <p class="text-xs text-gray-500 font-bold mb-1">当時の思い出</p>
-            <p class="text-sm text-gray-700 line-clamp-2"><%= memory.content %></p>
+          <!-- プレビューのヘッダー部分 -->
+          <div class="border-b pb-3 mb-4 flex justify-between items-center">
+            <div>
+              <h2 class="text-xl font-bold text-gray-800"><%= memory.work.title %></h2>
+              <p class="text-sm text-gray-500 mt-1">作者: <%= memory.work.author %> | ジャンル: <%= memory.work.genre %></p>
+            </div>
+            
+            <!--  作品カードごとのアクションボタン -->
+            <div class="flex gap-2">
+              <%= link_to "＋ 振り返りを記録", new_memory_reflection_path(memory), class: "text-green-600 hover:text-green-800 font-bold bg-green-50 px-3 py-1 rounded border border-green-100 text-sm flex items-center" %>
+              <%= link_to "詳細を見る", memory_path(memory), class: "text-blue-600 hover:text-blue-800 font-bold bg-blue-50 px-3 py-1 rounded border border-blue-100 text-sm flex items-center" %>
+            </div>
           </div>
 
-          <!-- 最新の振り返りプレビュー -->
-          <% latest_reflection = memory.reflections.order(recorded_on: :desc).first %>
-          <% if latest_reflection %>
-            <div class="pl-4 border-l-2 border-green-300">
-              <p class="text-xs text-gray-500 font-bold mb-1">最新の振り返り (<%= latest_reflection.recorded_on.strftime("%Y/%m/%d") %>)</p>
-              <p class="text-sm text-gray-700 line-clamp-2"><%= latest_reflection.content %></p>
+          <!-- プレビュー表示エリア -->
+          <div class="space-y-4">
+            <!-- 原体験のプレビュー -->
+            <div class="pl-4 border-l-2 border-gray-300">
+              <p class="text-xs text-gray-500 font-bold mb-1">当時の思い出</p>
+              <p class="text-sm text-gray-700 line-clamp-2"><%= memory.content %></p>
+              
+              <!-- タグ表示 -->
+              <% if memory.tags.any? %>
+                <div class="mt-2 flex flex-wrap gap-1">
+                  <% memory.tags.each do |tag| %>
+                    <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded-full border">
+                      #<%= tag.name %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
-          <% end %>
+
+            <!-- 最新の振り返りプレビュー -->
+            <% latest_reflection = memory.reflections.order(recorded_on: :desc).first %>
+            <% if latest_reflection %>
+              <div class="pl-4 border-l-2 border-green-300">
+                <p class="text-xs text-gray-500 font-bold mb-1">最新の振り返り (<%= latest_reflection.recorded_on.strftime("%Y/%m/%d") %>)</p>
+                <p class="text-sm text-gray-700 line-clamp-2"><%= latest_reflection.content %></p>
+
+                <!-- 振り返りのタグ表示 -->
+                <% if latest_reflection.tags.any? %>
+                  <div class="mt-2 flex flex-wrap gap-1">
+                    <% latest_reflection.tags.each do |tag| %>
+                      <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded-full border">
+                        #<%= tag.name %>
+                      </span>
+                    <% end %>
+                  </div>
+                <% end %>
+
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

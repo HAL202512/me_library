@@ -9,6 +9,7 @@ class MemoryForm
   attribute :encountered_year, :integer
   attribute :content, :string
   attribute :user_id, :integer
+  attribute :tag_ids # 追加：配列として受け取るため型指定は省略
 
   # バリデーション（未入力を防ぐ）
   validates :title, presence: true
@@ -19,13 +20,9 @@ class MemoryForm
 
   # 保存処理
   def save
-    # バリデーションに失敗した場合は保存処理を行わず false を返す
     return false if invalid?
 
-    # トランザクション処理: WorkかMemoryのどちらかの保存が失敗した場合、両方の保存を無効化する
     ActiveRecord::Base.transaction do
-      # 1. 作品（Work）の保存または取得
-      # （同じユーザーが同じタイトルの作品を既に登録している場合は、新しく作らずにその作品データを使う）
       work = Work.find_or_create_by!(
         user_id: user_id,
         title: title,
@@ -33,38 +30,47 @@ class MemoryForm
         genre: genre
       )
 
-      # 2. 思い出（Memory）の保存
-      Memory.create!(
+      memory = Memory.create!(
         user_id: user_id,
         work_id: work.id,
         encountered_year: encountered_year,
         content: content
       )
+
+      # 追加：タグの保存
+      if tag_ids.present?
+        memory.tag_ids = tag_ids.reject(&:blank?)
+      end
     end
     
-    true # 全て成功したら true を返す
+    true
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
-    false # データベース制約違反などがあれば false を返す
+    false
   end
 
   def update(memory)
     return false if invalid?
 
     ActiveRecord::Base.transaction do
-      # 既存の作品情報を更新（または新しく作成）
       work = Work.find_or_create_by!(title: title, author: author, genre: genre, user_id: user_id)
       
-      # 思い出の情報を更新
       memory.update!(
         work_id: work.id,
         encountered_year: encountered_year,
         content: content
       )
+
+      # 追加：タグの更新
+      if tag_ids.present?
+        memory.tag_ids = tag_ids.reject(&:blank?)
+      else
+        # すべてのチェックが外された場合は紐付けをクリア
+        memory.tag_ids = []
+      end
     end
     true
   rescue StandardError => e
     errors.add(:base, "更新に失敗しました: #{e.message}")
     false
   end
-  
 end

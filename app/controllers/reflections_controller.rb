@@ -47,6 +47,6 @@ class ReflectionsController < ApplicationController
   end
 
   def reflection_params
-    params.require(:reflection).permit(:recorded_on, :content)
+    params.require(:reflection).permit(:recorded_on, :content, tag_ids: [])
   end
 end

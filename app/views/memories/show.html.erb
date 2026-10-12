@@ -11,7 +11,7 @@
     <div class="border-b pb-4 mb-6">
       <h1 class="text-2xl font-bold text-gray-800"><%= @memory.work.title %></h1>
       <p class="text-gray-500 mt-2">
-        作者: <%= @memory.work.author.presence || "不明" %> | ジャンル: <%= @memory.work.genre %>
+        作者: <%= @memory.work.author %> | ジャンル: <%= @memory.work.genre %>
       </p>
     </div>
 
@@ -24,6 +24,17 @@
         
         <p class="text-sm text-blue-600 font-bold"><%= @memory.encountered_year %>年の出会い</p>
         <div class="mt-2 p-4 bg-blue-50 rounded text-gray-700 whitespace-pre-wrap"><%= @memory.content %></div>
+
+        <!-- 原体験のタグ表示 -->
+        <% if @memory.tags.any? %>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <% @memory.tags.each do |tag| %>
+              <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full border border-blue-200">
+                #<%= tag.name %>
+              </span>
+            <% end %>
+          </div>
+        <% end %>
       </div>
 
       <!-- 【経過】振り返りの履歴 -->
@@ -33,6 +44,17 @@
           
           <p class="text-sm text-green-600 font-bold"><%= reflection.recorded_on.strftime("%Y年%m月%d日") %> の振り返り</p>
           <div class="mt-2 p-4 bg-gray-50 rounded text-gray-700 whitespace-pre-wrap"><%= reflection.content %></div>
+          
+          <!-- 振り返りのタグ表示 -->
+          <% if reflection.tags.any? %>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <% reflection.tags.each do |tag| %>
+                <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full border border-green-200">
+                  #<%= tag.name %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
           
           <!-- 振り返りの編集・削除ボタン -->
           <div class="mt-3 flex justify-end gap-3 items-center">
