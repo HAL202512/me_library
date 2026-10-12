@@ -2,9 +2,9 @@ name: RSpec CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop", "feature/mvp-development" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   test:
