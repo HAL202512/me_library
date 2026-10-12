@@ -16,6 +16,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if user_params[:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
+    if @user.update(user_params)
+      redirect_to root_path, notice: "アカウント情報を更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+  
   private
 
   def user_params

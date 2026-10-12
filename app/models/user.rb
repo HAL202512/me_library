@@ -5,8 +5,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, confirmation: true
-  validates :password_confirmation, presence: true
+validates :password, presence: true, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
   has_many :works, dependent: :destroy
   has_many :memories, dependent: :destroy

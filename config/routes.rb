@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "home/index"
   root "home#index"
 
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create edit update]
   resources :user_sessions, only: %i[new create]
   resource :user_session, only: %i[destroy]
   resources :memories, only: %i[new create show edit update destroy] do
