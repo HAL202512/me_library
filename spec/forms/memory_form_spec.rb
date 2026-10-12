@@ -45,7 +45,7 @@ RSpec.describe MemoryForm, type: :model do
 
       it '保存に失敗し、エラーメッセージがセットされること' do
         expect(form.save).to be_falsey
-        expect(form.errors[:title]).to include("can't be blank")
+        expect(form.errors[:title]).to include("を入力してください")
       end
     end
   end

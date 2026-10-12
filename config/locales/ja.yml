@@ -1,0 +1,17 @@
+ja:
+  activemodel:
+    attributes:
+      memory_form:
+        title: タイトル
+        author: 作者
+        genre: ジャンル
+        encountered_year: 出会った年
+        content: 原体験
+        tag_ids: タグ
+  activerecord:
+    attributes:
+      user:
+        name: アカウント名
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認用）
