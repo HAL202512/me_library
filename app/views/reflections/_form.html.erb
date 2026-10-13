@@ -14,54 +14,74 @@
     <%= f.date_field :recorded_on, class: "border rounded p-2" %>
   </div>
 
+  <!-- タグ選択エリア -->
+  <div class="mb-6 space-y-6">
+    <h3 class="font-bold text-lg border-b pb-2">タグ（複数選択可）</h3>
+
+    <!-- 感情タグ -->
+    <div class="bg-gray-50 p-4 rounded-lg border">
+      <p class="text-sm text-gray-500 font-bold mb-3">現在の感情（この作品を鑑賞してどのような感情になりましたか？）</p>
+      <div class="space-y-3">
+        <% emotion_groups.each do |group_tags| %>
+          <div class="flex flex-wrap gap-2">
+            <%= f.collection_check_boxes :tag_ids, Tag.where(name: group_tags, category: 'emotion'), :id, :name, checked: Array(f.object.tag_ids).map(&:to_i) do |b| %>
+              <% colors = tag_color_classes(b.text) %>
+              <label class="cursor-pointer inline-block">
+                <%= b.check_box class: "peer hidden" %>
+                <span class="px-3 py-1.5 text-sm border rounded-full transition-all duration-200 select-none <%= colors[:base] %> <%= colors[:checked] %>">
+                  <%= b.text %>
+                </span>
+              </label>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 価値観タグ -->
+    <div class="bg-gray-50 p-4 rounded-lg border">
+      <p class="text-sm text-gray-500 font-bold mb-3">現在の価値観（この作品を通してどんな価値観に気付きましたか？）</p>
+      <div class="space-y-4">
+        <% value_groups.each do |group| %>
+          <div>
+            <p class="text-xs text-gray-400 mb-1.5"><%= group[:title] %></p>
+            <div class="flex flex-wrap gap-2">
+              <%= f.collection_check_boxes :tag_ids, Tag.where(name: group[:tags], category: 'value'), :id, :name, checked: Array(f.object.tag_ids).map(&:to_i) do |b| %>
+                <% colors = tag_color_classes(b.text) %>
+                <label class="cursor-pointer inline-block">
+                  <%= b.check_box class: "peer hidden" %>
+                  <span class="px-3 py-1.5 text-sm border rounded-full transition-all duration-200 select-none <%= colors[:base] %> <%= colors[:checked] %>">
+                    <%= b.text %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 振り返りタグ (reflection) -->
+    <div class="bg-gray-50 p-4 rounded-lg border">
+      <p class="text-sm text-gray-500 font-bold mb-3">自己の変化（以前と比べてどのような感情・価値観の変化がありましたか？）</p>
+      <div class="flex flex-wrap gap-2">
+        <%= f.collection_check_boxes :tag_ids, Tag.where(category: 'reflection'), :id, :name, checked: Array(f.object.tag_ids).map(&:to_i) do |b| %>
+          <% colors = tag_color_classes(b.text) %>
+          <label class="cursor-pointer inline-block">
+            <%= b.check_box class: "peer hidden" %>
+            <span class="px-3 py-1.5 text-sm border rounded-full transition-all duration-200 select-none <%= colors[:base] %> <%= colors[:checked] %>">
+              <%= b.text %>
+            </span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- 本文入力エリア -->
   <div class="mb-6">
     <%= f.label :content, "改めて振り返ったときに感じたことや・変化したこと", class: "block font-bold mb-2" %>
     <%= f.text_area :content, rows: 5, class: "border rounded p-2 w-full" %>
-  </div>
-
-<!-- タグ選択エリア -->
-  <div class="mb-6">
-    <p class="block font-bold mb-2">タグ（複数選択可）</p>
-    <div class="flex flex-wrap gap-4">
-      <!-- 感情タグ -->
-      <div class="border p-3 rounded w-full md:w-auto bg-white">
-        <p class="text-sm text-gray-500 font-bold mb-2">感情</p>
-        <div class="flex flex-wrap gap-2">
-          <%= f.collection_check_boxes :tag_ids, Tag.emotion, :id, :name do |b| %>
-            <div class="inline-flex items-center">
-              <%= b.check_box class: "mr-1" %>
-              <%= b.label class: "text-sm mr-3" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- 価値観タグ -->
-      <div class="border p-3 rounded w-full md:w-auto bg-white">
-        <p class="text-sm text-gray-500 font-bold mb-2">価値観</p>
-        <div class="flex flex-wrap gap-2">
-          <%= f.collection_check_boxes :tag_ids, Tag.value, :id, :name do |b| %>
-            <div class="inline-flex items-center">
-              <%= b.check_box class: "mr-1" %>
-              <%= b.label class: "text-sm mr-3" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- 振り返りタグ -->
-      <div class="border p-3 rounded w-full md:w-auto bg-white">
-        <p class="text-sm text-gray-500 font-bold mb-2">振り返り</p>
-        <div class="flex flex-wrap gap-2">
-          <%= f.collection_check_boxes :tag_ids, Tag.reflection, :id, :name do |b| %>
-            <div class="inline-flex items-center">
-              <%= b.check_box class: "mr-1" %>
-              <%= b.label class: "text-sm mr-3" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div>

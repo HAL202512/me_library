@@ -1,4 +1,4 @@
-<div class="max-w-4xl mx-auto mt-8">
+<div class="max-w-4xl mx-auto mt-8 px-4 sm:px-6">
   
   <% if @memories.empty? %>
     <div class="text-center py-12 bg-gray-50 rounded-lg border">
@@ -8,17 +8,17 @@
   <% else %>
     <div class="grid gap-6">
       <% @memories.each do |memory| %>
-        <div class="p-5 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
+        <div class="p-5 bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow overflow-hidden">
           
           <!-- プレビューのヘッダー部分 -->
-          <div class="border-b pb-3 mb-4 flex justify-between items-center">
-            <div>
-              <h2 class="text-xl font-bold text-gray-800"><%= memory.work.title %></h2>
-              <p class="text-sm text-gray-500 mt-1">作者: <%= memory.work.author %> | ジャンル: <%= memory.work.genre %></p>
+          <div class="border-b pb-3 mb-4 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+            <div class="min-w-0">
+              <h2 class="text-xl font-bold text-gray-800 break-words break-all"><%= memory.work.title %></h2>
+              <p class="text-sm text-gray-500 mt-1 break-words break-all">作者: <%= memory.work.author %> | ジャンル: <%= memory.work.genre %></p>
             </div>
             
             <!--  作品カードごとのアクションボタン -->
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-2 shrink-0">
               <%= link_to "＋ 振り返りを記録", new_memory_reflection_path(memory), class: "text-green-600 hover:text-green-800 font-bold bg-green-50 px-3 py-1 rounded border border-green-100 text-sm flex items-center" %>
               <%= link_to "詳細を見る", memory_path(memory), class: "text-blue-600 hover:text-blue-800 font-bold bg-blue-50 px-3 py-1 rounded border border-blue-100 text-sm flex items-center" %>
             </div>
@@ -28,39 +28,95 @@
           <div class="space-y-4">
             <!-- 原体験のプレビュー -->
             <div class="pl-4 border-l-2 border-gray-300">
-              <p class="text-xs text-gray-500 font-bold mb-1">当時の思い出</p>
-              <p class="text-sm text-gray-700 line-clamp-2"><%= memory.content %></p>
+              <p class="text-xs text-gray-500 font-bold mb-2">当時の思い出</p>
               
               <!-- タグ表示 -->
               <% if memory.tags.any? %>
-                <div class="mt-2 flex flex-wrap gap-1">
-                  <% memory.tags.each do |tag| %>
-                    <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded-full border">
-                      #<%= tag.name %>
-                    </span>
+                <div class="mb-3 space-y-2">
+                  <% emotions = memory.tags.select { |t| t.category == 'emotion' } %>
+                  <% if emotions.any? %>
+                    <div>
+                      <p class="text-[10px] text-gray-400 mb-1">感情</p>
+                      <div class="flex flex-wrap gap-1">
+                        <% emotions.each do |tag| %>
+                          <% colors = tag_color_classes(tag.name) %>
+                          <span class="inline-block text-[10px] px-2 py-0.5 rounded-full border <%= colors[:base] %>"><%= tag.name %></span>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+                  
+                  <% values = memory.tags.select { |t| t.category == 'value' } %>
+                  <% if values.any? %>
+                    <div>
+                      <p class="text-[10px] text-gray-400 mb-1">価値観</p>
+                      <div class="flex flex-wrap gap-1">
+                        <% values.each do |tag| %>
+                          <% colors = tag_color_classes(tag.name) %>
+                          <span class="inline-block text-[10px] px-2 py-0.5 rounded-full border <%= colors[:base] %>"><%= tag.name %></span>
+                        <% end %>
+                      </div>
+                    </div>
                   <% end %>
                 </div>
               <% end %>
+              
+              <!-- 本文 (折り返し) -->
+              <p class="text-sm text-gray-700 line-clamp-2 break-words break-all"><%= memory.content %></p>
             </div>
 
             <!-- 最新の振り返りプレビュー -->
             <% latest_reflection = memory.reflections.max_by(&:recorded_on) %>
             <% if latest_reflection %>
-              <div class="pl-4 border-l-2 border-green-300">
-                <p class="text-xs text-gray-500 font-bold mb-1">最新の振り返り (<%= latest_reflection.recorded_on.strftime("%Y/%m/%d") %>)</p>
-                <p class="text-sm text-gray-700 line-clamp-2"><%= latest_reflection.content %></p>
+              <div class="pl-4 border-l-2 border-green-300 mt-4">
+                <p class="text-xs text-gray-500 font-bold mb-2">最新の振り返り (<%= latest_reflection.recorded_on.strftime("%Y/%m/%d") %>)</p>
 
-                <!-- 振り返りのタグ表示 -->
+                <!-- 振り返りのタグ表示（本文より上・グループ分け） -->
                 <% if latest_reflection.tags.any? %>
-                  <div class="mt-2 flex flex-wrap gap-1">
-                    <% latest_reflection.tags.each do |tag| %>
-                      <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded-full border">
-                        #<%= tag.name %>
-                      </span>
+                  <div class="mb-3 space-y-2">
+                    <% emotions = latest_reflection.tags.select { |t| t.category == 'emotion' } %>
+                    <% if emotions.any? %>
+                      <div>
+                        <p class="text-[10px] text-gray-400 mb-1">現在の感情</p>
+                        <div class="flex flex-wrap gap-1">
+                          <% emotions.each do |tag| %>
+                            <% colors = tag_color_classes(tag.name) %>
+                            <span class="inline-block text-[10px] px-2 py-0.5 rounded-full border <%= colors[:base] %>"><%= tag.name %></span>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+
+                    <% values = latest_reflection.tags.select { |t| t.category == 'value' } %>
+                    <% if values.any? %>
+                      <div>
+                        <p class="text-[10px] text-gray-400 mb-1">現在の価値観</p>
+                        <div class="flex flex-wrap gap-1">
+                          <% values.each do |tag| %>
+                            <% colors = tag_color_classes(tag.name) %>
+                            <span class="inline-block text-[10px] px-2 py-0.5 rounded-full border <%= colors[:base] %>"><%= tag.name %></span>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+
+                    <% reflections = latest_reflection.tags.select { |t| t.category == 'reflection' } %>
+                    <% if reflections.any? %>
+                      <div>
+                        <p class="text-[10px] text-gray-400 mb-1">自己の変化</p>
+                        <div class="flex flex-wrap gap-1">
+                          <% reflections.each do |tag| %>
+                            <% colors = tag_color_classes(tag.name) %>
+                            <span class="inline-block text-[10px] px-2 py-0.5 rounded-full border <%= colors[:base] %>"><%= tag.name %></span>
+                          <% end %>
+                        </div>
+                      </div>
                     <% end %>
                   </div>
                 <% end %>
 
+                <!-- 本文 (折り返し) -->
+                <p class="text-sm text-gray-700 line-clamp-2 break-words break-all"><%= latest_reflection.content %></p>
               </div>
             <% end %>
           </div>
