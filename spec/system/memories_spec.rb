@@ -21,7 +21,7 @@ RSpec.describe 'Memories', type: :system do
     # 3. フォームの入力（_form.html.erb の label のテキストと完全一致させる）
     fill_in '作品名', with: 'テスト作品'
     fill_in '作者名', with: 'テスト作者'
-    select '小説', from: 'ジャンル' # selectボックスはこう書く
+    select '本', from: 'ジャンル' # selectボックスはこう書く
     fill_in '出会った年', with: 2023
     fill_in '当時の思い出', with: 'とても感動した。'
     

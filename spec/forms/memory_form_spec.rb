@@ -14,7 +14,7 @@ RSpec.describe MemoryForm, type: :model do
           user_id: user.id,
           title: 'ハリーポッター',
           author: 'J.K.ローリング',
-          genre: '小説',
+          genre: '本',
           encountered_year: 2001,
           content: '初めて読んだ時の衝撃がすごかった。',
           tag_ids: [tag1.id, tag2.id]
