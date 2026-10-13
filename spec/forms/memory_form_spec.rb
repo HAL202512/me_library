@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.describe MemoryForm, type: :model do
   let(:user) { create(:user) }
-  # app/models/tag.rb の enum定義（emotion, value, reflection）に実在するカテゴリを使用
-  let(:tag1) { Tag.create!(name: '感動', category: 'emotion') }
-  let(:tag2) { Tag.create!(name: '成長', category: 'value') }
+  # 現在の仕様に合わせ、実在するタグ名をテストデータとして使用
+  let(:tag1) { Tag.create!(name: '感動・発見', category: 'emotion') }
+  let(:tag2) { Tag.create!(name: '挑戦・成長', category: 'value') }
 
   describe '#save' do
     context '正しい値が入力された場合' do
       let(:form) do
-        # app/forms/memory_form.rb に定義されている attribute をすべて正確に渡す
         MemoryForm.new(
           user_id: user.id,
           title: 'ハリーポッター',
@@ -36,7 +35,7 @@ RSpec.describe MemoryForm, type: :model do
           user_id: user.id,
           title: '', # バリデーションエラーを起こすため空にする
           author: 'J.K.ローリング',
-          genre: '小説',
+          genre: '本', # ★「小説」から「本」に修正
           encountered_year: 2001,
           content: '初めて読んだ時の衝撃がすごかった。',
           tag_ids: [tag1.id, tag2.id]

@@ -187,6 +187,102 @@
             "line": 100.0
           }
         }
+      },
+      {
+        "created_at": "2026-10-13T15:19:41Z",
+        "branch": null,
+        "commit": null,
+        "totals": {
+          "line": 57.29
+        },
+        "groups": {
+          "Controllers": {
+            "line": 34.69
+          },
+          "Helpers": {
+            "line": 100.0
+          },
+          "Jobs": {
+            "line": 0.0
+          },
+          "Mailers": {
+            "line": 0.0
+          },
+          "Models": {
+            "line": 100.0
+          },
+          "Ungrouped": {
+            "line": 68.57
+          }
+        },
+        "files": {
+          "app/controllers/application_controller.rb": {
+            "line": 83.33
+          },
+          "app/controllers/home_controller.rb": {
+            "line": 100.0
+          },
+          "app/controllers/memories_controller.rb": {
+            "line": 64.28
+          },
+          "app/controllers/reflections_controller.rb": {
+            "line": 0.0
+          },
+          "app/controllers/user_sessions_controller.rb": {
+            "line": 63.63
+          },
+          "app/controllers/users_controller.rb": {
+            "line": 0.0
+          },
+          "app/forms/memory_form.rb": {
+            "line": 68.57
+          },
+          "app/helpers/application_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/home_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/tags_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/user_sessions_helper.rb": {
+            "line": 100.0
+          },
+          "app/helpers/users_helper.rb": {
+            "line": 100.0
+          },
+          "app/jobs/application_job.rb": {
+            "line": 0.0
+          },
+          "app/mailers/application_mailer.rb": {
+            "line": 0.0
+          },
+          "app/models/application_record.rb": {
+            "line": 100.0
+          },
+          "app/models/memory.rb": {
+            "line": 100.0
+          },
+          "app/models/memory_tag.rb": {
+            "line": 100.0
+          },
+          "app/models/reflection.rb": {
+            "line": 100.0
+          },
+          "app/models/reflection_tag.rb": {
+            "line": 100.0
+          },
+          "app/models/tag.rb": {
+            "line": 100.0
+          },
+          "app/models/user.rb": {
+            "line": 100.0
+          },
+          "app/models/work.rb": {
+            "line": 100.0
+          }
+        }
       }
     ]
   }
