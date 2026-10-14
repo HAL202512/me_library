@@ -1,9 +1,14 @@
 #!/bin/bash -e
 
 # Railsサーバーの起動時にDBを準備し、初期データを登録する
-if [ "${@: -3:1}" == "./bin/rails" ] && [ "${@: -2:1}" == "server" ]; then
+if [ "${1:-}" = "./bin/rails" ] && [ "${2:-}" = "server" ]; then
+  echo "=== Running db:prepare ==="
   ./bin/rails db:prepare
+
+  echo "=== Running db:seed ==="
   ./bin/rails db:seed
+
+  echo "=== Database initialization finished ==="
 fi
 
-exec "${@}"
+exec "$@"
